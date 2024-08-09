@@ -1,0 +1,2 @@
+create view Hinos as
+select number, title From item where collection_id in ( select _id From collection where language_id=9 and type_id=2) order by cast(number as number);
