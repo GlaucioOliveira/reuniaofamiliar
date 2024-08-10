@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  ApiService: 'https://goliveira.com/api-reuniaofamiliar/',
+  ApiService: 'https://api-reuniaofamiliar.goliveira.com/',
   firebaseConfig: {
     apiKey: "AIzaSyA7rzfhH_riJRtrr9G7BiuIL_JJ9y3taog",
     authDomain: "reuniaofamiliar-445f8.firebaseapp.com",
