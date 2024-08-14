@@ -1,8 +1,0 @@
-.full-width-table {
-  width: 100%;
-}
-
-::ng-deep.special-date,.special-date {
-  /* background-color: red !important;*/
-  border-bottom: 3px solid green !important;
-}

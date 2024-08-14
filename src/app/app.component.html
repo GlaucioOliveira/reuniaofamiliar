@@ -1,20 +1,20 @@
 <mat-toolbar color="primary">
-  <span>Reunião Familiar</span>
-  
-  <span class="example-spacer"></span>
-<ng-container *ngIf="!isLoginPage()">
-  <button mat-icon-button (click)="toolbarButtonClicked('save')" *ngIf="!isMeetingsPage()">
-    <mat-icon>save</mat-icon>
-  </button>
-  <button mat-icon-button (click)="toolbarButtonClicked('add')" *ngIf="isMeetingsPage()">
-    <mat-icon>add_circle_outline</mat-icon>
-  </button>
-  <button mat-icon-button (click)="toolbarButtonClicked('history')" *ngIf="!isMeetingsPage()">
-    <mat-icon>history</mat-icon>
-  </button>
-  <button mat-icon-button (click)="toolbarButtonClicked('delete')" *ngIf="!isMeetingsPage()">
-    <mat-icon>delete</mat-icon>
-  </button>  
-</ng-container>
-</mat-toolbar>
-<router-outlet></router-outlet>
+    <span>Reunião Familiar</span>
+    
+    <span class="example-spacer"></span>
+  <ng-container *ngIf="!isLoginPage()">
+    <button mat-icon-button (click)="toolbarButtonClicked('save')" *ngIf="!isMeetingsPage()">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toolbarButtonClicked('add')" *ngIf="isMeetingsPage()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toolbarButtonClicked('history')" *ngIf="!isMeetingsPage()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toolbarButtonClicked('delete')" *ngIf="!isMeetingsPage()">
+      <mat-icon>delete</mat-icon>
+    </button>  
+  </ng-container>
+  </mat-toolbar>
+  <router-outlet></router-outlet>

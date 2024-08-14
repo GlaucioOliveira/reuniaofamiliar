@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     ApiService: 'https://api-reuniaofamiliar.goliveira.com/',
     firebase: {
       apiKey: "AIzaSyA7rzfhH_riJRtrr9G7BiuIL_JJ9y3taog",

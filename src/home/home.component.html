@@ -1,0 +1,22 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="numero">
+     <th mat-header-cell *matHeaderCellDef> Número </th>
+     <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+   </ng-container>
+  <ng-container matColumnDef="datareuniao">
+     <th mat-header-cell *matHeaderCellDef> Data Reunião </th>
+     <td mat-cell *matCellDef="let element"> {{formatarData(element.datareuniao)}} </td>
+   </ng-container>
+
+  <ng-container matColumnDef="mensagem">
+     <th mat-header-cell *matHeaderCellDef> Mensagem </th>
+     <td mat-cell *matCellDef="let element"> {{getFamilyMemberName(element.mensagem)}} </td>
+   </ng-container>
+
+   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClicked(row)"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 15, 20]"
+showFirstLastButtons
+aria-label="Select page of periodic elements">
+</mat-paginator>

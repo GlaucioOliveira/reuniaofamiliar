@@ -1,0 +1,130 @@
+<form>
+    <mat-form-field class="full-width" appearance="fill" *ngIf="reuniaoFamiliar.Id == 0">
+      <mat-label>Data da Reunião</mat-label>
+      <input matInput [matDatepicker]="picker" name="datareuniao" [(ngModel)]="reuniaoFamiliar.datareuniao" (dateChange)="onSelectDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill" *ngIf="reuniaoFamiliar.Id > 0">
+      <mat-label>Data da Reunião</mat-label>
+      <input type="text" matInput name="datareuniao" [value]="dateFormatted(reuniaoFamiliar.datareuniao)" disabled="true">
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Número </mat-label>
+      <input type="number" matInput name="numero" [(ngModel)]="reuniaoFamiliar.numero">
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Dirigida Por</mat-label>
+      <mat-select [(ngModel)]="reuniaoFamiliar.dirigidapor" name="dirigidapor">
+        <mat-option *ngFor="let member of listaFamilia()" [value]="member.id">
+          {{member.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-label>Anúncios</mat-label>    
+      <textarea matInput placeholder="" [(ngModel)]="reuniaoFamiliar.anuncio" name="anuncio"
+      cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="10"></textarea>
+                <mat-checkbox [(ngModel)]="reuniaoFamiliar.naomembro" matSuffix name="naomembro">Visitante(s) Presente</mat-checkbox> 
+    </mat-form-field>
+    
+
+        
+    <div class="full-width" appearance="fill">
+      <mat-radio-group aria-label="Hino" [(ngModel)]="reuniaoFamiliar.tipo_hinario" name="tipoHinario" (click)="clearHymnSelected()">
+        <mat-radio-button value="primaria">Primária</mat-radio-button>
+        <mat-radio-button value="hinario">Hinário</mat-radio-button>
+        <mat-radio-button value="hinario_novo">Hinário Novo</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    
+    <div class="full-width" appearance="fill">
+      <audio id=”AudioSong” controls [src]="hymnSelected()?.url | mySafe" style="width:100%">
+      </audio>
+      <!-- <audio controls="" autoplay="" name="media" style="width:100%"><source [src]="hymnSelected()?.url" type="audio/mpeg"></audio> -->
+    </div>
+
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Hino</mat-label>
+      <button mat-icon-button (click)="showLyric($event)" matPrefix [disabled]="!hymnSelected()">
+        <mat-icon>lyrics</mat-icon>
+      </button>
+
+      <mat-select [(ngModel)]="reuniaoFamiliar.primeiro_hino" name="primeiro_hino" #hymnSelect>
+        <mat-option *ngFor="let hymn of hymnsArrayFilter()" [value]="hymn.number">
+          {{hymn.number}} - {{hymn.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- <mat-form-field class="full-width" appearance="fill">
+      <mat-label>1º Hino {{ nomeDoHino }}</mat-label>
+      <input type="number" #nomeHino matInput maxlength="4" name="primeiro_hino" [(ngModel)]="reuniaoFamiliar.primeiro_hino" (change)="obterNomeDoHino(nomeHino)">
+    </mat-form-field> -->
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>1º Oração</mat-label>
+      <mat-select [(ngModel)]="reuniaoFamiliar.primeira_oracao" name="primeira_oracao">
+        <mat-option *ngFor="let member of listaFamilia()" [value]="member.id">
+          {{member.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Mensagem</mat-label>
+      <mat-select [(ngModel)]="reuniaoFamiliar.mensagem" name="mensagem">
+        <mat-option *ngFor="let member of listaFamilia()" [value]="member.id">
+          {{member.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Regras de Fé</mat-label>
+      <mat-select [(ngModel)]="reuniaoFamiliar.regras_de_fe" name="regras_de_fe" multiple>
+        <mat-option *ngFor="let member of listaFamilia()" [value]="member.id">
+          {{member.name}}
+        </mat-option>
+      </mat-select>
+
+      <!-- <mat-form-field>
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          @for (topping of toppingList; track topping) {
+            <mat-option [value]="topping">{{topping}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> -->
+
+    </mat-form-field>
+    
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Última Oração</mat-label>
+      <mat-select [(ngModel)]="reuniaoFamiliar.ultima_oracao" name="ultima_oracao">
+        <mat-option *ngFor="let member of listaFamilia()" [value]="member.id">
+          {{member.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-label>Observação</mat-label>
+      <textarea matInput placeholder="" [(ngModel)]="reuniaoFamiliar.observacao" name="observacao" 
+      cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                cdkAutosizeMaxRows="10"></textarea>
+    </mat-form-field>
+    <!-- 
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="SalvarReuniao()">{{btnSalvarReuniaoLabel()}}</button>
+    </mat-card-actions> -->
+    </form>    
