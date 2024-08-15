@@ -127,9 +127,9 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
       if(x !== null && x?.Id > 0)
       {
         this.reuniaoFamiliar = x;
-
-        if(this.reuniaoFamiliar?.primeiro_hino !== undefined && this.reuniaoFamiliar?.primeiro_hino > 0)
-          this.nomeDoHino = this.hinosArray.filter(x => x.number == this.reuniaoFamiliar?.primeiro_hino)[0]?.title;
+        
+        if(this.reuniaoFamiliar.regras_de_fe_str)
+          this.reuniaoFamiliar.regras_de_fe = this.reuniaoFamiliar.regras_de_fe_str.split(", ").map(Number);
       }
       else{
         if(getNextMeetingNumber){
@@ -164,6 +164,8 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
   }
 
   SalvarReuniao(): void{
+    this.reuniaoFamiliar.regras_de_fe_str = this.reuniaoFamiliar.regras_de_fe?.join(", ");
+
     if(this.reuniaoFamiliar.Id <= 0)
     {
       this.meetingService.save(this.reuniaoFamiliar).subscribe({

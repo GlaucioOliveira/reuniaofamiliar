@@ -17,6 +17,7 @@ export class ReuniaoFamiliar {
     observacao: string = '';
     Id: number = 0;
     regras_de_fe?: number[];
+    regras_de_fe_str?: string = '';
     tipo_hinario?: string = '';
     
     constructor(data: string = '', numero: number = 0){    
