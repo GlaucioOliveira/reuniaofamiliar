@@ -36,7 +36,7 @@ export class AppComponent {
   }
 
   isLoginPage(){
-    return this.router.url === '/login';
+    return this.router.url.indexOf('/login') > -1;
   }
 
   toolbarButtonClicked(buttonName: string){
