@@ -8,7 +8,7 @@ export class ReuniaoFamiliar {
     naomembro?: boolean = false;
     dirigidapor: number = 0;
     primeira_oracao: number = 0;
-    primeiro_hino?: number;
+    primeiro_hino?: string;
     primeiro_hino_nome: string = '';
     mensagem: number = 0;
     ultima_oracao: number = 0;

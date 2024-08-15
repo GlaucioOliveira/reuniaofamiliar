@@ -29,7 +29,6 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
   btnSaveSubscription: Subscription = new Subscription();
   musicPlaying: boolean = false;
   hymnsArray: Hymn[] = [];
-  
   constructor(
     private fb: FormBuilder,
     private meetingService: MeetingService,
@@ -52,12 +51,7 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
   }
 
   hymnsArrayFilter(){
-    if(this.reuniaoFamiliar.tipo_hinario == "primaria")
-      return this.hymnsArray.filter((x) => x.uri == "/manual/childrens-songbook");
-    else if(this.reuniaoFamiliar.tipo_hinario == "hinario_novo")
-      return this.hymnsArray.filter((x) => x.uri !== "/manual/hymns" && x.uri !== "/manual/childrens-songbook");
-    else
-      return this.hymnsArray.filter((x) => x.uri == "/manual/hymns");
+      return this.hymnsArray.filter((x) => x.uri == this.reuniaoFamiliar.tipo_hinario);
   }
 
   hymnSelected(): Hymn | null{
@@ -108,6 +102,11 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(LyricDialogComponent,
       {
         autoFocus: false,
+        width: '90vw',
+        height: '80vh',
+        maxWidth: '90vw',
+        maxHeight: '90vh',
+        panelClass: 'full-screen-dialog'
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -128,8 +127,8 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
       {
         this.reuniaoFamiliar = x;
         
-        if(this.reuniaoFamiliar.regras_de_fe_str)
-          this.reuniaoFamiliar.regras_de_fe = this.reuniaoFamiliar.regras_de_fe_str.split(", ").map(Number);
+        if(x.regras_de_fe)
+          this.reuniaoFamiliar.regras_de_fe = x.regras_de_fe.split(", ").map(Number);     
       }
       else{
         if(getNextMeetingNumber){
@@ -183,29 +182,6 @@ export class ReuniaoComponent implements OnInit, OnDestroy {
         },
         error: (e: any) => this.popupMessage('Oops, algo deu errado ao atualizar o registro :|')
       });
-    }
-  }
-
-
-  obterNomeDoHino(nomeHino: HTMLInputElement): void{
-    let hinoDigitado = parseInt(nomeHino.value);    
-    let hino = this.hinosArray.find(x=> x.number === hinoDigitado);    
-    
-    this.reuniaoFamiliar.primeiro_hino = hinoDigitado;
-    this.reuniaoFamiliar.primeiro_hino_nome = hino?.title || '';
-
-    this.nomeDoHino = this.formatarNomeDoHino(this.reuniaoFamiliar.primeiro_hino_nome);
-  }
-
-  private formatarNomeDoHino(nomeHino: string): string
-  {
-    if(nomeHino !== undefined)
-    {
-      return `- ${nomeHino}`;
-    }
-    else
-    {
-      return '';
     }
   }
 
